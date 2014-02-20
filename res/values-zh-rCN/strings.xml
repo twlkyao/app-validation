@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">FileObserver</string>
+    <string name="action_settings">设置</string>
+    <string name="main_activity">MainActivity</string>
+    <string name="apk_validate">ApkValidate</string>
+    <string name="apk_validate_title">Apk验证</string>
+    <string name="apk_downloaded">新下载了apk</string>
+    <string name="title_activity_apk_validate">ApkValidate</string>
+    <string name="apk_passed">通过验证</string>
+    <string name="apk_failed">未通过验证</string>
+    <string name="btn_delete">删除</string>
+    <string name="btn_ok">确定</string>
+
+</resources>

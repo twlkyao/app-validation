@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">FileObserver</string>
+    <string name="action_settings">Settings</string>
+    <string name="main_activity">MainActivity</string>
+    <string name="apk_validate">ApkValidate</string>
+    <string name="apk_validate_title">Apk Validate</string>
+    <string name="apk_downloaded">New downloaded apk</string>
+    <string name="title_activity_apk_validate">ApkValidate</string>
+    <string name="apk_passed">Passed</string>
+    <string name="apk_failed">Failed</string>
+    <string name="btn_delete">Delete</string>
+    <string name="btn_ok">OK</string>
+
+</resources>
