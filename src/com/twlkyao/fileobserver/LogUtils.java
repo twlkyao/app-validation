@@ -1,7 +1,5 @@
 package com.twlkyao.fileobserver;
 
-import android.R.anim;
-
 /** 
  * @author wangli
  * @editor Shiyao Qi
