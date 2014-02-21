@@ -28,9 +28,6 @@ public class ObserverService extends Service {
 	private NotificationManager notificationManager; // NotificationManager.
 	private int notification_number = 0; // The number of notifications.
 	
-	// You can define a mode to monitor.
-	private int CHANGES_ONLY = FileObserver.CREATE | FileObserver.DELETE | FileObserver.CLOSE_WRITE
-			| FileObserver.DELETE_SELF | FileObserver.MOVE_SELF | FileObserver.MOVED_FROM | FileObserver.MOVED_TO;
 	/** Called when the activity is first created. */
 	@Override
 	public void onCreate() {
@@ -248,11 +245,6 @@ public class ObserverService extends Service {
 					        path,
 					        contentIntent);
 					notificationManager.notify(notification_number++, notification);
-					
-					/*if(path.contains(".apk")){
-						Log.d("Filter", path);
-						File[] files = new File(path).listFiles(new myFileFilter());
-					}*/
 					break;
 				case FileObserver.OPEN: // 32
 					logUtils.d(tag, "OPEN: " + path);
