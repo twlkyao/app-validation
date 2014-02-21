@@ -221,62 +221,44 @@ public class ObserverService extends Service {
 					break;
 				case FileObserver.CLOSE_WRITE: // 16
 					logUtils.d(tag, "CLOSE_WRITE: " + path);
-
 					
-					Notification notification = new Notification(android.R.drawable.ic_notification_clear_all,
-							path, System.currentTimeMillis());
-					notification.flags = Notification.FLAG_AUTO_CANCEL; // The notification should be canceled when click the Clear all button.
-					Intent i = new Intent(getApplicationContext(), ApkValidate.class);
-					Bundle bundle = new Bundle();
-					bundle.putString("filepath", path);
-					i.putExtras(bundle);
-					logUtils.d(tag, path);
+					if(path.endsWith(".apk")) {
+						Notification notification = new Notification(android.R.drawable.ic_notification_clear_all,
+								path, System.currentTimeMillis());
+						notification.flags = Notification.FLAG_AUTO_CANCEL; // The notification should be canceled when click the Clear all button.
+						Intent i = new Intent(getApplicationContext(), ApkValidate.class);
+						Bundle bundle = new Bundle();
+						bundle.putString("filepath", path);
+						i.putExtras(bundle);
+						logUtils.d(tag, path);
+						
+						i.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP|Intent.FLAG_ACTIVITY_NEW_TASK);
+						//PendingIntent
+						PendingIntent contentIntent = PendingIntent.getActivity(getApplicationContext(),
+								0,
+								i,
+								PendingIntent.FLAG_UPDATE_CURRENT);
+						
+						notification.setLatestEventInfo(
+						        getApplicationContext(),
+						        getString(R.string.apk_downloaded),
+						        path,
+						        contentIntent);
+						notificationManager.notify(notification_number++, notification);
+					}
 					
-					i.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP|Intent.FLAG_ACTIVITY_NEW_TASK);
-					//PendingIntent
-					PendingIntent contentIntent = PendingIntent.getActivity(getApplicationContext(),
-							0,
-							i,
-							PendingIntent.FLAG_UPDATE_CURRENT);
-					
-					notification.setLatestEventInfo(
-					        getApplicationContext(),
-					        getString(R.string.apk_downloaded),
-					        path,
-					        contentIntent);
-					notificationManager.notify(notification_number++, notification);
 					break;
 				case FileObserver.OPEN: // 32
 					logUtils.d(tag, "OPEN: " + path);
 					break;
 				case FileObserver.MOVED_FROM: // 64
 					logUtils.d(tag, "MOVED_FROM: " + path);
-					/*if(path.contains("apk")){
-						Log.d("Filter", path);
-//						File[] files = new File(path).listFiles(new myFileFilter());
-					}*/
 					break;
 				case FileObserver.MOVED_TO: // 128
 					logUtils.d(tag, "MOVED_TO: " + path);
-					/*if(path.contains("apk")){
-						Log.d("Filter", path);
-						File[] files = new File(path).listFiles(new myFileFilter());
-					}*/
 					break;
 				case FileObserver.CREATE: // 256
 					logUtils.d(tag, "CREATE: " + path);
-					
-					/*if(path.contains("apk")){
-						Log.d("Filter", path);
-						File[] files = new File(path).listFiles(new myFileFilter());
-					}
-					if(files.length != 0) {
-						Log.d("FileFilter", "");
-					}
-					for(int i = 0; i < files.length; i++) {
-						Log.d("FileFilter", files[i].getName());
-					}*/
-					
 					break;
 				case FileObserver.DELETE: // 512
 					logUtils.d(tag, "DELETE: " + path);
