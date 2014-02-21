@@ -26,7 +26,7 @@ import org.json.JSONObject;
 public class ApkOperation {
 	
 	private String tag = "ApkOperation";
-	private boolean debug = false;
+	private boolean debug = true;
 	private LogUtils logUtils = new LogUtils(debug, tag);
 	
 	public boolean ApkCheckInfo(String apkCheckUrl, String apkPath) {

@@ -20,9 +20,8 @@ import android.os.IBinder;
 
 public class ObserverService extends Service {
 	private FileObserver mFileObserver;
-	private ServiceBinder serviceBinder;
 	
-	private boolean debug = false; // Indicate whether is debug.
+	private boolean debug = true; // Indicate whether is debug.
 	private String tag = "ObserverService";
 	private LogUtils logUtils = new LogUtils(debug, tag);
 	private NotificationManager notificationManager; // NotificationManager.
@@ -46,22 +45,16 @@ public class ObserverService extends Service {
 	@Override
 	public IBinder onBind(Intent intent) {
 		// TODO Auto-generated method stub
-		return serviceBinder;
+		return null; // Client can not bind to the service.
 	}
 	
 	@Override
 	public void onDestroy() {
 		// TODO Auto-generated method stub
 		super.onDestroy();
-		if(null != mFileObserver) mFileObserver.stopWatching(); //Stop watching.
+		if(null != mFileObserver)
+			mFileObserver.stopWatching(); //Stop watching.
 	}
-
-	class ServiceBinder extends Binder {
-		public ObserverService getService() {
-			return ObserverService.this;
-		}
-	}
-
 
 	/**
 	 * Monitor all events under certain directory recursively, can't monitor the hiden directory such as ".a".
@@ -139,7 +132,11 @@ public class ObserverService extends Service {
 				SingleFileObserver sfo = (SingleFileObserver) mObservers.get(i);
 				sfo.startWatching();
 			}
-		};
+		};class ServiceBinder extends Binder {
+			public ObserverService getService() {
+				return ObserverService.this;
+			}
+		}
 		
 		@Override
 		public void stopWatching() {
@@ -188,7 +185,11 @@ public class ObserverService extends Service {
 		 * MOVED_TO	Event type: A file or subdirectory was moved to the monitored directory, constant value 128
 		 * CREATE	Event type: A new file or subdirectory was created under the monitored directory, constant value 256
 		 * DELETE	Event type: A file was deleted from the monitored directory, Constant value 512
-		 * DELETE_SELF	Event type: The monitored file or directory was deleted; monitoring effectively stops, constant value 1024
+		 * DELETE_SELF	Event tclass ServiceBinder extends Binder {
+		public ObserverService getService() {
+			return ObserverService.this;
+		}
+	}ype: The monitored file or directory was deleted; monitoring effectively stops, constant value 1024
 		 * MOVE_SELF	Event type: The monitored file or directory was moved; monitoring continues, constant value 2048
 		 * ALL_EVENTS	Event mask: All valid event types, combined, Constant value 4095
 		 */
@@ -300,37 +301,6 @@ public class ObserverService extends Service {
 				
 				// To unify the operation on the file event.
 				RecursiveFileObserver.this.onEvent(event, newPath); // Call the RecursiveFileObserver with the full path.
-			}
-		}
-	}
-	
-	/**
-	 * Filter the files according to the specified suffix of file.
-	 * @author NetWork
-	 * @editor Shiyao Qi
-	 * @date 2013.1.10
-	 * @email qishiyao2008@126.com
-	 */
-	class myFileFilter implements FileFilter{
-		String filter; // The file filter flag.
-		
-		/**
-		 * Constructor.
-		 * @param filter The file filter flag to use.
-		 */
-		public myFileFilter(String filter) {
-			this.filter = filter;
-		}
-
-		@Override
-		public boolean accept(File pathname) {
-			// TODO Auto-generated method stub
-		
-			String filename = pathname.getName().toLowerCase(); // Get the file name and lower it.
-			if(filename.contains(filter)){ // Filter the file according to their names.
-				return false;
-			}else{
-				return true;
 			}
 		}
 	}

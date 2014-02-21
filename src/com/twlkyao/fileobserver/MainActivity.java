@@ -11,8 +11,7 @@ import android.util.Log;
 
 public class MainActivity extends Activity {
 
-	private ObserverService observerService;
-	private boolean debug = false;
+	private boolean debug = true;
 	private String tag = "MainActivity";
 	public LogUtils logUtils = new LogUtils(debug, tag);
 	@Override
@@ -23,30 +22,12 @@ public class MainActivity extends Activity {
 		logUtils.d("MainActivity", "into");
 		
 		Intent intent = new Intent(MainActivity.this, ObserverService.class);
-		bindService(intent, conn, Context.BIND_AUTO_CREATE);
+		startService(intent);
 	}
 	
 	@Override
 	protected void onDestroy() {
 		super.onDestroy();
-		this.unbindService(conn);
 		logUtils.d("MainActivity", "out");
 	}
-	
-	private ServiceConnection conn = new ServiceConnection() {
-		
-		// Get service object operation.
-		@Override
-		public void onServiceConnected(ComponentName name, IBinder service) {
-			// TODO Auto-generated method stub
-			observerService =  ((ObserverService.ServiceBinder) service).getService();
-		}
-		
-		@Override
-		public void onServiceDisconnected(ComponentName name) {
-			// TODO Auto-generated method stub
-			observerService = null;
-		}
-	};
-
 }

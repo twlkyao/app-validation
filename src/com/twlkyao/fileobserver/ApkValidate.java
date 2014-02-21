@@ -21,7 +21,7 @@ public class ApkValidate extends Activity {
 	private ApkOperation apkOperation = new ApkOperation();
 	private String filePath;
 	private String tag = "ApkValidation";
-	private boolean debug = false;
+	private boolean debug = true;
 	private LogUtils logUtils = new LogUtils(debug, tag);
 	private String apkCheckUrl = "http://10.0.2.2/cloud/check_apk_info"; // Change this to your service address.
 	
